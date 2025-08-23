@@ -6,25 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.devsuperior.dslist.dto.GameDTO;
-import com.devsuperior.dslist.dto.GameMinDTO;
-import com.devsuperior.dslist.repositories.GameRepository;
+import com.devsuperior.dslist.dto.GameListDTO;
+import com.devsuperior.dslist.repositories.GameListRepository;
 
 @Service
 public class GameListService {
 	
 	@Autowired
-	private GameRepository gameRepository;
+	private GameListRepository gameListRepository;
 	
 	@Transactional(readOnly = true)
-	public GameDTO findById(Long id) {	
-		var result = gameRepository.findById(id).get();
-		return new GameDTO(result);
-	}
-	
-	@Transactional(readOnly = true)
-	public List<GameMinDTO> findAll() {
-		var result = gameRepository.findAll();
-		return result.stream().map(x -> new GameMinDTO(x)).toList();
+	public List<GameListDTO> findAll() {
+		var result = gameListRepository.findAll();
+		return result.stream().map(x -> new GameListDTO(x)).toList();
 	}
 }
